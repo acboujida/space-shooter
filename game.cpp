@@ -7,4 +7,6 @@ Game::Game() {
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(1280,720);
+    player = new Player();
+    scene->addItem(player);
 }
