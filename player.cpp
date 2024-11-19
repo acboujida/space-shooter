@@ -22,6 +22,7 @@ Player::Player(QGraphicsItem* parent) : QGraphicsPixmapItem(parent), cooldown(fa
     connect(cooldownTimer, &QTimer::timeout, this, &Player::resetCooldown);
 
     score = new Score();
+    health = new Health();
 }
 
 void Player::keyPressEvent(QKeyEvent * event) {
@@ -43,8 +44,17 @@ void Player::fireBullet() {
     }
 }
 
-Score *Player::getScore() const {
+Score* Player::getScore() const {
     return score;
+}
+
+Health* Player::getHealth() const {
+    return health;
+}
+
+void Player::takeDamage() {
+    if (health->getHealth() > 0)
+        health->decreaseHealth(2);
 }
 
 void Player::resetCooldown() {

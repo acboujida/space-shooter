@@ -33,6 +33,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         enemy.cpp
         score.h
         score.cpp
+        health.h
+        health.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET SpaceShooter APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

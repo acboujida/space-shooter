@@ -13,8 +13,8 @@ Game::Game() {
     scene->addItem(player);
     setFocus();
 
-    //Score* score = player->getScore();
     scene->addItem(player->getScore());
+    scene->addItem(player->getHealth());
 
     QTimer* timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &Game::spawnEnemy);

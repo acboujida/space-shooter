@@ -7,6 +7,7 @@
 #include <QSet>
 #include <QTimer>
 #include "score.h"
+#include "health.h"
 
 class Player : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
@@ -16,6 +17,8 @@ public:
     void keyReleaseEvent(QKeyEvent*);
     void fireBullet();
     Score* getScore() const;
+    Health* getHealth() const;
+    void takeDamage();
 public slots:
     void handleKeyInputs();
     void resetCooldown();
@@ -24,6 +27,7 @@ private:
     bool cooldown;
     QTimer* cooldownTimer;
     Score* score;
+    Health* health;
 };
 
 #endif // PLAYER_H

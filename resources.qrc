@@ -3,5 +3,7 @@
         <file>bullet.png</file>
         <file>player.png</file>
         <file>meteorite.png</file>
+        <file>heart.png</file>
+        <file>inactive_heart.png</file>
     </qresource>
 </RCC>

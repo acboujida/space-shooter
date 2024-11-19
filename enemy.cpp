@@ -2,6 +2,7 @@
 #include <random>
 #include <QTimer>
 #include <QGraphicsScene>
+#include "player.h"
 
 Enemy::Enemy(QGraphicsItem* parent) : QGraphicsPixmapItem(parent) {
     QPixmap enemyImage(":/images/meteorite.png");
@@ -18,6 +19,17 @@ Enemy::Enemy(QGraphicsItem* parent) : QGraphicsPixmapItem(parent) {
 
 void Enemy::move() {
     setPos(x(), y() + 5);
+
+    QList<QGraphicsItem*> items = collidingItems();
+    for (QGraphicsItem* item : items) {
+        if (Player* player = dynamic_cast<Player*>(item)) {
+            player->takeDamage();
+            scene()->removeItem(this);
+            delete this;
+            return;
+        }
+    }
+
     if (y() + 5 >= 720) {
         scene()->removeItem(this);
         delete this;
