@@ -10,6 +10,7 @@ class Game : public QGraphicsView {
     Player* player;
 public:
     Game();
+    void spawnEnemy();
 };
 
 #endif // GAME_H

@@ -1,4 +1,6 @@
 #include "game.h"
+#include "enemy.h"
+#include <QTimer>
 
 Game::Game() {
     scene = new QGraphicsScene(this);
@@ -10,4 +12,14 @@ Game::Game() {
     player = new Player();
     scene->addItem(player);
     setFocus();
+
+    QTimer* timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &Game::spawnEnemy);
+    timer->start(1500);
+}
+
+void Game::spawnEnemy()
+{
+    Enemy* enemy = new Enemy();
+    scene->addItem(enemy);
 }
