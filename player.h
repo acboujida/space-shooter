@@ -13,11 +13,14 @@ public:
     Player(QGraphicsItem* parent=nullptr);
     void keyPressEvent(QKeyEvent*);
     void keyReleaseEvent(QKeyEvent*);
+    void fireBullet();
 public slots:
-    void handleKeys();
-    void shoot();
+    void handleKeyInputs();
+    void resetCooldown();
 private:
     QSet<int> keysPressed;
+    bool cooldown;
+    QTimer* cooldownTimer;
 };
 
 #endif // PLAYER_H

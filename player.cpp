@@ -3,7 +3,7 @@
 #include <QGraphicsScene>
 #include <QTimer>
 
-Player::Player(QGraphicsItem* parent) : QGraphicsPixmapItem(parent) {
+Player::Player(QGraphicsItem* parent) : QGraphicsPixmapItem(parent), cooldown(false) {
     QPixmap playerImage(":/images/player.png");
     setPixmap(playerImage);
 
@@ -14,9 +14,12 @@ Player::Player(QGraphicsItem* parent) : QGraphicsPixmapItem(parent) {
     setFlag(QGraphicsItem::ItemIsFocusable);
     setFocus();
 
-    QTimer* timer = new QTimer();
-    connect(timer, SIGNAL(timeout()), this, SLOT(handleKeys()));
-    timer->start(16);
+    QTimer* inputsTimer = new QTimer(this);
+    connect(inputsTimer, SIGNAL(timeout()), this, SLOT(handleKeyInputs()));
+    inputsTimer->start(16);
+
+    cooldownTimer = new QTimer(this);
+    connect(cooldownTimer, SIGNAL(timeout()), this, SLOT(resetCooldown()));
 }
 
 void Player::keyPressEvent(QKeyEvent * event) {
@@ -27,13 +30,22 @@ void Player::keyReleaseEvent(QKeyEvent * event) {
     keysPressed.remove(event->key());
 }
 
-void Player::shoot() {
-    Bullet* bullet = new Bullet();
-    bullet->setPos(x() + pixmap().width()/2 - bullet->pixmap().width()/2, y()-bullet->pixmap().height());
-    scene()->addItem(bullet);
+void Player::fireBullet() {
+    if (!cooldown) {
+        Bullet* bullet = new Bullet();
+        bullet->setPos(x() + pixmap().width()/2 - bullet->pixmap().width()/2, y()-bullet->pixmap().height());
+        scene()->addItem(bullet);
+        cooldown = true;
+        cooldownTimer->start(500);
+    }
 }
 
-void Player::handleKeys() {
+void Player::resetCooldown() {
+    cooldownTimer->stop();
+    cooldown = false;
+}
+
+void Player::handleKeyInputs() {
     if (keysPressed.contains(Qt::Key_Left) && x() - 10 >= 0)
         setPos(x() - 5, y());
     if (keysPressed.contains(Qt::Key_Right) && x() + 10 + pixmap().width() <= 1280)
@@ -43,5 +55,5 @@ void Player::handleKeys() {
     if (keysPressed.contains(Qt::Key_Down) && y() + 10 + pixmap().height() <= 720)
         setPos(x(), y() + 5);
     if (keysPressed.contains(Qt::Key_Space))
-        shoot();
+        fireBullet();
 }
