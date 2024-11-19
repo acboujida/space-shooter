@@ -59,6 +59,10 @@ void Player::takeDamage(int healthPoints) {
         emit playerDied();
 }
 
+void Player::clearKeys() {
+    keysPressed.clear();
+}
+
 void Player::resetCooldown() {
     cooldownTimer->stop();
     cooldown = false;

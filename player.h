@@ -19,6 +19,7 @@ public:
     Score* getScore() const;
     Health* getHealth() const;
     void takeDamage(int healthPoints=1);
+    void clearKeys();
 public slots:
     void handleKeyInputs();
     void resetCooldown();

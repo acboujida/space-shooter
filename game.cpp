@@ -31,6 +31,7 @@ void Game::spawnEnemy() {
 void Game::handleGameOver() {
     spawnTimer->stop();
     player->setEnabled(false);
+    player->clearKeys();
 
     QGraphicsTextItem* gameOverText = new QGraphicsTextItem("GAME OVER");
     gameOverText->setFont(QFont("times", 70));
