@@ -4,7 +4,7 @@ Health::Health() : currentHealth(3) {
     activeHeartImage = QPixmap(":/images/heart.png");
     inactiveHeartImage = QPixmap(":/images/inactive_heart.png");
 
-    for (int i=0; i<3; i++) {
+    for (int i=0; i<currentHealth; i++) {
         QGraphicsPixmapItem* heartItem = new QGraphicsPixmapItem(activeHeartImage);
         heartItem->setParentItem(this);
         heartItem->setPos(i*40, 0);

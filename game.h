@@ -8,9 +8,11 @@
 class Game : public QGraphicsView {
     QGraphicsScene* scene;
     Player* player;
+    QTimer* spawnTimer;
 public:
     Game();
     void spawnEnemy();
+    void handleGameOver();
 };
 
 #endif // GAME_H

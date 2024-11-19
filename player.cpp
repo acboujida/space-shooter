@@ -52,9 +52,11 @@ Health* Player::getHealth() const {
     return health;
 }
 
-void Player::takeDamage() {
+void Player::takeDamage(int healthPoints) {
     if (health->getHealth() > 0)
-        health->decreaseHealth(2);
+        health->decreaseHealth(healthPoints);
+    if (health->getHealth() == 0)
+        emit playerDied();
 }
 
 void Player::resetCooldown() {

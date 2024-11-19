@@ -18,7 +18,7 @@ public:
     void fireBullet();
     Score* getScore() const;
     Health* getHealth() const;
-    void takeDamage();
+    void takeDamage(int healthPoints=1);
 public slots:
     void handleKeyInputs();
     void resetCooldown();
@@ -28,6 +28,8 @@ private:
     QTimer* cooldownTimer;
     Score* score;
     Health* health;
+signals:
+    void playerDied();
 };
 
 #endif // PLAYER_H
