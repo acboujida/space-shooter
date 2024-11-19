@@ -7,7 +7,7 @@ Bullet::Bullet() {
     setPixmap(bulletImage);
 
     QTimer* timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(move()));
+    connect(timer, &QTimer::timeout, this, &Bullet::move);
     timer->start(16);
 }
 

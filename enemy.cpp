@@ -11,8 +11,8 @@ Enemy::Enemy(QGraphicsItem* parent) : QGraphicsPixmapItem(parent) {
 
     setPos(mt()%(1280 - pixmap().width()), -pixmap().height());
 
-    QTimer* timer = new QTimer();
-    connect(timer, SIGNAL(timeout()), this, SLOT(move()));
+    QTimer* timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &Enemy::move);
     timer->start(16);
 }
 

@@ -15,11 +15,11 @@ Player::Player(QGraphicsItem* parent) : QGraphicsPixmapItem(parent), cooldown(fa
     setFocus();
 
     QTimer* inputsTimer = new QTimer(this);
-    connect(inputsTimer, SIGNAL(timeout()), this, SLOT(handleKeyInputs()));
+    connect(inputsTimer, &QTimer::timeout, this, &Player::handleKeyInputs);
     inputsTimer->start(16);
 
     cooldownTimer = new QTimer(this);
-    connect(cooldownTimer, SIGNAL(timeout()), this, SLOT(resetCooldown()));
+    connect(cooldownTimer, &QTimer::timeout, this, &Player::resetCooldown);
 }
 
 void Player::keyPressEvent(QKeyEvent * event) {
