@@ -10,6 +10,8 @@ public:
     Bullet();
 public slots:
     void move();
+signals:
+    void hit(int points=1);
 };
 
 #endif // BULLET_H

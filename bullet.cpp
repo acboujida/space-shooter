@@ -18,6 +18,7 @@ void Bullet::move() {
         if (Enemy* enemy = dynamic_cast<Enemy*>(item)) {
             scene()->removeItem(enemy);
             scene()->removeItem(this);
+            emit hit();
             delete enemy;
             delete this;
             return;

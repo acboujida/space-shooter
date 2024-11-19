@@ -13,6 +13,9 @@ Game::Game() {
     scene->addItem(player);
     setFocus();
 
+    //Score* score = player->getScore();
+    scene->addItem(player->getScore());
+
     QTimer* timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &Game::spawnEnemy);
     timer->start(1500);

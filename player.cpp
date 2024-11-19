@@ -20,6 +20,8 @@ Player::Player(QGraphicsItem* parent) : QGraphicsPixmapItem(parent), cooldown(fa
 
     cooldownTimer = new QTimer(this);
     connect(cooldownTimer, &QTimer::timeout, this, &Player::resetCooldown);
+
+    score = new Score();
 }
 
 void Player::keyPressEvent(QKeyEvent * event) {
@@ -37,7 +39,12 @@ void Player::fireBullet() {
         scene()->addItem(bullet);
         cooldown = true;
         cooldownTimer->start(500);
+        connect(bullet, &Bullet::hit, score, &Score::increaseScore);
     }
+}
+
+Score *Player::getScore() const {
+    return score;
 }
 
 void Player::resetCooldown() {
