@@ -13,6 +13,7 @@ public:
     Game();
     void spawnEnemy();
     void handleGameOver();
+    void keyPressEvent(QKeyEvent* event);
 };
 
 #endif // GAME_H

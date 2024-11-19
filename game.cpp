@@ -41,3 +41,13 @@ void Game::handleGameOver() {
     scene->addItem(gameOverText);
     scene->addItem(finalScoreText);
 }
+
+void Game::keyPressEvent(QKeyEvent *event) {
+    if (!player->isEnabled()) {
+        event->ignore();
+        return;
+    }
+
+    QGraphicsView::keyPressEvent(event);
+}
+
