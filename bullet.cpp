@@ -1,6 +1,7 @@
 #include "bullet.h"
 #include <QTimer>
 #include <QGraphicsScene>
+#include "enemy.h"
 
 Bullet::Bullet() {
     QPixmap bulletImage(":/images/bullet.png");
@@ -12,6 +13,17 @@ Bullet::Bullet() {
 }
 
 void Bullet::move() {
+    QList<QGraphicsItem*> items = collidingItems();
+    for (QGraphicsItem* item : items) {
+        if (Enemy* enemy = dynamic_cast<Enemy*>(item)) {
+            scene()->removeItem(enemy);
+            scene()->removeItem(this);
+            delete enemy;
+            delete this;
+            return;
+        }
+    }
+
     setPos(x(), y()-5);
     if (y() - pixmap().height() - 5 < 0) {
         scene()->removeItem(this);
