@@ -2,6 +2,7 @@
 #include "bullet.h"
 #include <QGraphicsScene>
 #include <QTimer>
+#include <QAudioOutput>
 
 Player::Player(QGraphicsItem* parent) : QGraphicsPixmapItem(parent), cooldown(false) {
     QPixmap playerImage(":/images/player.png");
@@ -23,6 +24,12 @@ Player::Player(QGraphicsItem* parent) : QGraphicsPixmapItem(parent), cooldown(fa
 
     score = new Score();
     health = new Health();
+
+    bulletSound = new QMediaPlayer(this);
+    audio = new QAudioOutput(this);
+    bulletSound->setAudioOutput(audio);
+    bulletSound->setSource(QUrl("qrc:/soundtracks/fireshot.mp3"));
+    audio->setVolume(50);
 }
 
 void Player::keyPressEvent(QKeyEvent * event) {
@@ -41,6 +48,8 @@ void Player::fireBullet() {
         cooldown = true;
         cooldownTimer->start(500);
         connect(bullet, &Bullet::hit, score, &Score::increaseScore);
+
+        bulletSound->play();
     }
 }
 

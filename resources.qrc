@@ -8,5 +8,6 @@
     </qresource>
     <qresource prefix="/soundtracks">
         <file>main_theme.wav</file>
+        <file>fireshot.mp3</file>
     </qresource>
 </RCC>
