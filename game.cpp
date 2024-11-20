@@ -1,6 +1,8 @@
 #include "game.h"
 #include "enemy.h"
 #include <QTimer>
+#include <QMediaPlayer>
+#include <QAudioOutput>
 
 Game::Game() {
     scene = new QGraphicsScene(this);
@@ -21,6 +23,14 @@ Game::Game() {
     spawnTimer->start(1500);
 
     connect(player, &Player::playerDied, this, &Game::handleGameOver);
+
+    QMediaPlayer* media = new QMediaPlayer(this);
+    QAudioOutput* audio = new QAudioOutput(this);
+    media->setAudioOutput(audio);
+    media->setSource(QUrl("qrc:/soundtracks/main_theme.wav"));
+    audio->setVolume(100);
+    media->setLoops(QMediaPlayer::Infinite);
+    media->play();
 }
 
 void Game::spawnEnemy() {

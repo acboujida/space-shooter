@@ -6,4 +6,7 @@
         <file>heart.png</file>
         <file>inactive_heart.png</file>
     </qresource>
+    <qresource prefix="/soundtracks">
+        <file>main_theme.wav</file>
+    </qresource>
 </RCC>
