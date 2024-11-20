@@ -5,6 +5,7 @@
         <file>meteorite.png</file>
         <file>heart.png</file>
         <file>inactive_heart.png</file>
+        <file>bg.png</file>
     </qresource>
     <qresource prefix="/soundtracks">
         <file>main_theme.wav</file>

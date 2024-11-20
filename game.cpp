@@ -7,6 +7,10 @@
 Game::Game() {
     scene = new QGraphicsScene(this);
     scene->setSceneRect(0,0,1280,720);
+
+    QPixmap background(":/images/bg.png");
+    scene->setBackgroundBrush(background);
+
     setScene(scene);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -20,7 +24,7 @@ Game::Game() {
 
     spawnTimer = new QTimer(this);
     connect(spawnTimer, &QTimer::timeout, this, &Game::spawnEnemy);
-    spawnTimer->start(1500);
+    spawnTimer->start(400);
 
     connect(player, &Player::playerDied, this, &Game::handleGameOver);
 
