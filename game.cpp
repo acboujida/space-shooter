@@ -1,8 +1,7 @@
 #include "game.h"
 #include "enemy.h"
 #include <QTimer>
-#include <QMediaPlayer>
-#include <QAudioOutput>
+#include "soundmanager.h"
 
 Game::Game() {
     scene = new QGraphicsScene(this);
@@ -28,13 +27,7 @@ Game::Game() {
 
     connect(player, &Player::playerDied, this, &Game::handleGameOver);
 
-    QMediaPlayer* media = new QMediaPlayer(this);
-    QAudioOutput* audio = new QAudioOutput(this);
-    media->setAudioOutput(audio);
-    media->setSource(QUrl("qrc:/soundtracks/main_theme.wav"));
-    audio->setVolume(100);
-    media->setLoops(QMediaPlayer::Infinite);
-    media->play();
+    SoundManager::getInstance(this)->playBackgroundMusic(QUrl("qrc:/soundtracks/main_theme.wav"));
 }
 
 void Game::spawnEnemy() {
@@ -46,6 +39,7 @@ void Game::handleGameOver() {
     spawnTimer->stop();
     player->setEnabled(false);
     player->clearKeys();
+    scene->removeItem(player);
 
     QGraphicsTextItem* gameOverText = new QGraphicsTextItem("GAME OVER");
     gameOverText->setFont(QFont("times", 70));
@@ -55,6 +49,7 @@ void Game::handleGameOver() {
     finalScoreText->setPos(1280 / 2 - finalScoreText->boundingRect().width() / 2, 720 / 2);
     scene->addItem(gameOverText);
     scene->addItem(finalScoreText);
+    delete player;
 }
 
 void Game::keyPressEvent(QKeyEvent *event) {

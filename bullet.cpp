@@ -2,6 +2,7 @@
 #include <QTimer>
 #include <QGraphicsScene>
 #include "enemy.h"
+#include "soundmanager.h"
 
 Bullet::Bullet() {
     QPixmap bulletImage(":/images/bullet.png");
@@ -16,6 +17,8 @@ void Bullet::move() {
     QList<QGraphicsItem*> items = collidingItems();
     for (QGraphicsItem* item : items) {
         if (Enemy* enemy = dynamic_cast<Enemy*>(item)) {
+
+            SoundManager::getInstance(this)->playSoundEffect(QUrl("qrc:/soundtracks/damage_taken.mp3"));
             scene()->removeItem(enemy);
             scene()->removeItem(this);
             emit hit();

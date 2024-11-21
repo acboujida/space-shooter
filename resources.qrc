@@ -10,5 +10,7 @@
     <qresource prefix="/soundtracks">
         <file>main_theme.wav</file>
         <file>fireshot.mp3</file>
+        <file>final_explosion.mp3</file>
+        <file>damage_taken.mp3</file>
     </qresource>
 </RCC>

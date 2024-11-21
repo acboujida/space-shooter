@@ -8,7 +8,6 @@
 #include <QTimer>
 #include "score.h"
 #include "health.h"
-#include <QMediaPlayer>
 
 class Player : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
@@ -30,8 +29,6 @@ private:
     QTimer* cooldownTimer;
     Score* score;
     Health* health;
-    QMediaPlayer* bulletSound;
-    QAudioOutput* audio;
 signals:
     void playerDied();
 };

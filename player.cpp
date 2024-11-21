@@ -2,7 +2,7 @@
 #include "bullet.h"
 #include <QGraphicsScene>
 #include <QTimer>
-#include <QAudioOutput>
+#include "soundmanager.h"
 
 Player::Player(QGraphicsItem* parent) : QGraphicsPixmapItem(parent), cooldown(false) {
     QPixmap playerImage(":/images/player.png");
@@ -24,12 +24,6 @@ Player::Player(QGraphicsItem* parent) : QGraphicsPixmapItem(parent), cooldown(fa
 
     score = new Score();
     health = new Health();
-
-    bulletSound = new QMediaPlayer(this);
-    audio = new QAudioOutput(this);
-    bulletSound->setAudioOutput(audio);
-    bulletSound->setSource(QUrl("qrc:/soundtracks/fireshot.mp3"));
-    audio->setVolume(50);
 }
 
 void Player::keyPressEvent(QKeyEvent * event) {
@@ -49,7 +43,7 @@ void Player::fireBullet() {
         cooldownTimer->start(500);
         connect(bullet, &Bullet::hit, score, &Score::increaseScore);
 
-        bulletSound->play();
+        SoundManager::getInstance()->playSoundEffect(QUrl("qrc:/soundtracks/fireshot.mp3"));
     }
 }
 
@@ -62,10 +56,14 @@ Health* Player::getHealth() const {
 }
 
 void Player::takeDamage(int healthPoints) {
-    if (health->getHealth() > 0)
+    if (health->getHealth() > 0) {
+        SoundManager::getInstance()->playSoundEffect(QUrl("qrc:/soundtracks/damage_taken.mp3"));
         health->decreaseHealth(healthPoints);
-    if (health->getHealth() == 0)
+    }
+    if (health->getHealth() == 0) {
+        SoundManager::getInstance()->playSoundEffect(QUrl("qrc:/soundtracks/final_explosion.mp3"));
         emit playerDied();
+    }
 }
 
 void Player::clearKeys() {
